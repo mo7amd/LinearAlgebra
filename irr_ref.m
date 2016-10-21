@@ -15,11 +15,11 @@ function  irr_ref(A)
     fprintf('********************* \n');
     while i<=r && j <=c
         
-        while A(i,j) == 0
+        while A(i,j) == 0 && i<r
            temp = i+1;
            rowo = 1;
            if rowo == 1
-           while A(i,j) == 0 && i<=r
+           while A(i,j) == 0 && i<=r && temp<=r
                A([i temp],:) = A([temp i],:);
                fprintf('swap r%d with r%d \n',i,temp);
                fprintf('******************\n');
@@ -54,24 +54,26 @@ function  irr_ref(A)
     fprintf('************************ \n');
     for l = 1:r
         pos = pivot(l);
-        if pos ~= 0 && A(l,pos) ~= 1
-            fprintf('divide r%d by %d -> r%d \n',l,A(l,pos),l);
-            fprintf('************************ \n');
-            A(l,:) = A(l,:)./A(l,pos);
-            disp(A);
-        end
+            if A(l,pos) ~= 0
+                if pos ~= 0 && A(l,pos) ~= 1  
+                    fprintf('divide r%d by %d -> r%d \n',l,A(l,pos),l);
+                    fprintf('************************ \n');
+                    A(l,:) = A(l,:)./A(l,pos);
+                    disp(A);
+                end
         
-        if l>1
-           for k = 1:l-1
-               if A(k,pos) == 0
-                   continue;
-               end
-               fprintf('multiplie r%d by %d then subtract from r%d -> r%d \n',l,A(k,pos),k,k);
-               fprintf('************************************ \n');
-               A(k,:) = A(k,:) - A(l,:).*(A(k,pos));
-               disp(A);
-           end
-        end
+                if l>1
+                    for k = 1:l-1
+                        if A(k,pos) == 0
+                            continue;
+                        end
+                        fprintf('multiplie r%d by %d then subtract from r%d -> r%d \n',l,A(k,pos),k,k);
+                        fprintf('************************************ \n');
+                        A(k,:) = A(k,:) - A(l,:).*(A(k,pos));
+                        disp(A);
+                    end
+                end
+            end
     end
 % **********************************************************************
     fprintf('##############################################################\n');
