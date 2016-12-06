@@ -1,21 +1,14 @@
 function final_project ()
 
-    prompt = {'Enter number of sides','Enter vertices: '};
-    
-    %     for i = 1:num_of_sides 
-%        fprintf('enter the vertics %d',i);
-%        prompt = (' :');
-%        position = input(prompt);
-%        x(1,i) = position(1,1);
-%        y(1,i) = position(1,2);
-%     end
-    
-    dlg_title = 'Input';
-    num_lines = 5;
-    
-    position = inputdlg(prompt,dlg_title,num_lines);
-    num_of_sides = str2num(num_of_sides{1});
-
+    prompt = 'Enter number of sides : ';
+    num_of_sides = input(prompt);
+        for i = 1:num_of_sides 
+       fprintf('enter the vertics %d',i);
+       prompt = (' :');
+       position = input(prompt);
+       x(1,i) = position(1,1);
+       y(1,i) = position(1,2);
+        end
     x(1,num_of_sides+1) = x(1,1);
     y(1,num_of_sides+1) = y(1,1);
     subplot(3,1,1); 
