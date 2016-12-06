@@ -1,9 +1,12 @@
 function final_project ()
     while true
-    prompt = ' 1) draw shape \n 2) import image \n : ';
+    prompt = ' 1) draw shape \n 2) import image \n 0) to exit \n : ';
     select = input(prompt);
     
     switch select 
+        case 0
+            clc;
+            return;   
         case 1
              draw_shape();
         case 2
@@ -19,13 +22,13 @@ function import_image ()
     image_matrix = imread(name_of_image);
     image(image_matrix);
     while true
-        prompt = ('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 0) to exit \n :  ');
+        prompt = ('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 5) rotate by angle\n 0) to exit \n :  ');
         operation = input(prompt);
         switch operation 
             case 0 
                 return;
             case 1 
-                image_matrix = rot90(image_matrix);
+                image_matrix = imrotate(image_matrix,90);
                 image(image_matrix);
             case 2
                 image_matrix = imrotate(image_matrix,-90);
@@ -35,6 +38,11 @@ function import_image ()
                 image(image_matrix);
             case 4
                 image_matrix = flipdim(image_matrix,1);
+                image(image_matrix);
+            case 5
+                prompt = 'enter the angle : ';
+                angle = input(prompt);
+                image_matrix = imrotate(image_matrix,angle);
                 image(image_matrix);
         end
     end
@@ -56,7 +64,7 @@ function draw_shape ()
     plot(x, y, 'b-', 'LineWidth', 3);
 %     ****************************************************
     while true 
-    prompt = ('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 0) to exit \n :  ');
+    prompt = ('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 5) rotate by angle \n 6) shift\n 0) to exit \n :  ');
     operation = input(prompt);
     switch operation 
         case 0 
@@ -69,6 +77,10 @@ function draw_shape ()
             [x,y] = flip_h(x,y);
         case 4
             [x,y] = flip_v(x,y);
+        case 5
+            [x,y] = rotate(x,y);
+        case 6 
+            [x,y] = shift(x,y)
         end
         
     end
@@ -100,4 +112,22 @@ function [x_flip,y_flip] = flip_v(x,y)
    y_flip = -1.*y;
    subplot(3,1,2);
    plot(x_flip,y_flip, 'b-', 'LineWidth', 3);
+end
+
+function [x_rot_g,y_rot_g] = rotate (x,y)
+    prompt = 'enter the angle : ';
+    angle = input(prompt);
+    x_rot_g = cosd(angle).*x + sind(angle).*y;
+    y_rot_g = -sind(angle).*x + cosd(angle).*y ;
+    subplot(3,1,2);
+    plot(x_rot_g,y_rot_g, 'b-', 'LineWidth', 3);
+end
+
+function [x_shifted,y_shifted] = shift(x,y,shift)
+    prompt = 'enter the shift value : ';
+    shift = input(prompt);
+    x_shifted = x+shift(1);
+    y_shifted = y+shift(2);
+    subplot(3,1,2);
+    plot(x_shifted,y_shifted, 'b-', 'LineWidth', 3);
 end
