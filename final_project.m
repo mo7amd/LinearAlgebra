@@ -1,5 +1,46 @@
 function final_project ()
+    while true
+    prompt = ' 1) draw shape \n 2) import image \n : ';
+    select = input(prompt);
+    
+    switch select 
+        case 1
+             draw_shape();
+        case 2
+            import_image();
+    end
+    end
+%     ************************************************************
+end 
 
+function import_image ()
+    prompt = ('enter the name of image : ');
+    name_of_image = input(prompt);
+    image_matrix = imread(name_of_image);
+    image(image_matrix);
+    while true
+        prompt = ('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 0) to exit \n :  ');
+        operation = input(prompt);
+        switch operation 
+            case 0 
+                return;
+            case 1 
+                image_matrix = rot90(image_matrix);
+                image(image_matrix);
+            case 2
+                image_matrix = imrotate(image_matrix,-90);
+                image(image_matrix);
+            case 3
+                image_matrix = flipdim(image_matrix,2);
+                image(image_matrix);
+            case 4
+                image_matrix = flipdim(image_matrix,1);
+                image(image_matrix);
+        end
+    end
+end
+
+function draw_shape () 
     prompt = 'Enter number of sides : ';
     num_of_sides = input(prompt);
         for i = 1:num_of_sides 
@@ -13,11 +54,13 @@ function final_project ()
     y(1,num_of_sides+1) = y(1,1);
     subplot(3,1,1); 
     plot(x, y, 'b-', 'LineWidth', 3);
-%     ************************************************************
+%     ****************************************************
     while true 
-    prompt = ('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n :  ');
+    prompt = ('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 0) to exit \n :  ');
     operation = input(prompt);
     switch operation 
+        case 0 
+            return;
         case 1
             [x, y] = rotate_90_ccw(x,y);
         case 2
@@ -29,7 +72,7 @@ function final_project ()
         end
         
     end
-end 
+end
 
 function [x_rot,y_rot] =  rotate_90_ccw (x,y)
     x_rot = -1.*y;
