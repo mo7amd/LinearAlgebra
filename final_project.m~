@@ -82,7 +82,7 @@ while true
     else
         projection_state = 'remove';
     end
-    fprintf('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 5) rotate by angle \n 6) shift\n 7) %s projection in R3 \n 8) horizontal shear \n 9) vertical shear \n 10) scaling \n 0) to exit \n',projection_state);
+    fprintf('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 5) rotate by angle \n 6) shift\n 7) %s projection in R3 \n 8) horizontal shear \n 9) vertical shear \n 0) to exit \n',projection_state);
     prompt=(' : ');
     operation = input(prompt);
     switch operation
@@ -188,12 +188,8 @@ function [x_shear,y_shear] = shear_h(x,y,state)
     plot_shape(x_shear,y_shear,state);
 end
 
-function [x_scale,y_scale] = scale(x,y,state)
-    prompt = ' scale factor S = ';
-    S = input(prompt);
-    x_scale = S.*x;
-    y_scale = S.*y;
-    plot_shape(x_scale,y_scale,state);
+function 
+
 end
 
 function plot_shape(x,y,state)
