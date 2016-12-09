@@ -1,7 +1,9 @@
 function final_project ()
 % main loop
 while true
-    prompt = ' 1) draw shape \n 2) import image \n 0) to exit \n : ';
+    clc;
+    cprintf('*blue',' 1) draw shape \n 2) import image \n 0) to exit \n');
+    prompt = ' : ';
     select = input(prompt);
     switch select
         case 0
@@ -53,10 +55,11 @@ end
 end
 
 function draw_shape ()
-prompt = 'Enter number of sides : ';
+cprintf('-comment','Enter number of sides \n');
+prompt = ' : ';
 num_of_sides = input(prompt);
-fprintf('enter the vertics as [{x1,y1},{x2,y2}]\n');
-prompt = (' :');
+cprintf('-comment','enter the vertics as [{x1,y1},{x2,y2}]\n');
+prompt = (' : ');
 position = input(prompt);
 if length(position) ~= 2*num_of_sides
     warning('please enter vertices equal to sides');
@@ -77,12 +80,15 @@ axis square;
 state=1;
 %     ****************************************************
 while true
+    clc;
+    cprintf('-comment',' select the oepration : \n');
+    cprintf('[1,0,1]',' 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 5) rotate by angle \n 6) shift\n 7) horizontal shear \n 8) vertical shear \n 9) scaling \n');
     if state
-        projection_state = 'Add';
+        cprintf('*green',' 10) Add projection transformation \n');
     else
-        projection_state = 'remove';
+        cprintf('*red',' 10) remove projection transofrmation \n');
     end
-    fprintf('select the oepration : \n 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 5) rotate by angle \n 6) shift\n 7) %s projection in R3 \n 8) horizontal shear \n 9) vertical shear \n 10) scaling \n 0) to exit \n',projection_state);
+    cprintf('*blue',' 0) to exit \n')
     prompt=(' : ');
     operation = input(prompt);
     switch operation
@@ -102,13 +108,13 @@ while true
         case 6
             [x,y] = shift(x,y,state);
         case 7
-            [state] = projection(x,y,state);
-        case 8
             [x,y] = shear_v(x,y,state);
-        case 9
+        case 8
             [x,y] = shear_h(x,y,state);
-        case 10
+        case 9
             [x,y] = scale(x,y,state);
+        case 10
+            [state] = projection(x,y,state);
         otherwise
             warning('please enter only one of the above');
             plot_shape(x,y);
