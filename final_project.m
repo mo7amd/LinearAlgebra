@@ -60,27 +60,32 @@ prompt = ' : ';
 num_of_sides = input(prompt);
 cprintf('-comment','enter the vertics as [{x1,y1},{x2,y2}]\n');
 prompt = (' : ');
-position = input(prompt);
-if length(position) ~= 2*num_of_sides
+vertices = input(prompt);
+if length(vertices) ~= 2*num_of_sides
     warning('please enter vertices equal to sides');
     return;
 end
-x=position(1:2:end);
-y=position(2:2:end);
+x=vertices(1:2:end);
+y=vertices(2:2:end);
 x=cell2mat(x);
 y=cell2mat(y);
 x(1,num_of_sides+1) = x(1,1);
 y(1,num_of_sides+1) = y(1,1);
 subplot(2,1,1);
+title('original view');
 fill(x,y,'r');
 axis square;
 subplot(2,1,2);
 fill(x,y,'r');
 axis square;
+% flages : 
 state=1;
+operation =100;
 %     ****************************************************
-while true
+while true  
+    if operation <= 10
     clc;
+    end
     cprintf('-comment',' select the oepration : \n');
     cprintf('[1,0,1]',' 1) rotate CCW \n 2) rotate CC\n 3) flip horizontal\n 4) flip vertical \n 5) rotate by angle \n 6) shift\n 7) horizontal shear \n 8) vertical shear \n 9) scaling \n');
     if state
@@ -117,7 +122,7 @@ while true
             [state] = projection(x,y,state);
         otherwise
             warning('please enter only one of the above');
-            plot_shape(x,y);
+            plot_shape(x,y,state);
     end
     
 end
@@ -205,12 +210,12 @@ end
 function plot_shape(x,y,state)
 if state
     subplot(2,1,2);
-    fill(x,y,'r');
+    title('modified');fill(x,y,'r');
     axis square;
 else
     z=zeros(1,length(x));
     subplot(2,1,2);
-    fill3(x,y,z,'r');
+    title('modified');fill3(x,y,z,'r');
     axis square;
 ;
 end
